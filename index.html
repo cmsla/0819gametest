@@ -12,15 +12,21 @@
 			
 			var character;
 			var mario;
+			var Bt;
 
 			function preload() {
 				game.load.image('mario', 'assets/mario.png');
+				game.load.image('Bt', 'assets/upBt.png');
+				game.load.image('Bt', 'assets/downBt.png');
+				game.load.image('Bt', 'assets/leftBt.png');
+				game.load.image('Bt', 'assets/rightBt.png');
 			}
 
 			function create() {			
 				//character = new Phaser.Rectangle(380, 280, 40, 40); 
 				mario = game.add.sprite(100, 100, 'mario');
 				mario.anchor.setTo(0.5, 0.5);
+				mario.location
 
 				cursors = game.input.keyboard.createCursorKeys();
 			}
