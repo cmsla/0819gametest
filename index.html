@@ -3,15 +3,38 @@
 <head>
 	<title>Game Console</title>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/phaser/2.0.6/phaser.min.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+
 </head>
 <body>
 	<script type="text/javascript">
 		window.onload = function(){
+			var socket = io();
+			socket.on('move', function(msg){
+				console.log('move: ' +msg);
+				if(msg === 'up'){
+				mario.y = mario.y - 30;
+				}
+				else if(msg === 'down'){
+				mario.y = mario.y + 30;
+				}
+				else if (msg === 'left'){
+				mario.x = mario.x - 30;
+				}
+				else if(msg === 'right'){
+				mario.x = mario.x + 30;
+				}
+
+
+			});
+
 			var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {preload: preload,
 						create: create, update: update, render: render});
 			var character;
 			var mario;
 			function preload(){
+
+
 				game.load.image('mario', 'assets/mario.png');
 				game.load.image('up', 'assets/upBt.png');
 				game.load.image('down', 'assets/downBt.png');
@@ -19,6 +42,10 @@
 				game.load.image('right', 'assets/rightBt.png');
 			}
 			function create(){
+
+
+				
+
 				character = new Phaser.Rectangle(380, 280, 40, 40); 
 				mario = game.add.sprite(100, 100, 'mario');
 
@@ -28,20 +55,30 @@
 				left = game.add.button(500, 400, 'left', moveLeft);
 				right = game.add.button(700, 400,'right', moveRight);
 
+			
+
 			}
 			function moveUp(){
-				mario.y -=5;
+				
+				socket.emit('move', 'up');
 			}
 			function moveDown(){
-				mario.y +=5;
+				
+				socket.emit('move', 'down');
 			}
 			function moveLeft(){
-				mario.x -=5;
+				
+				socket.emit('move', 'left');
 			}
 			function moveRight(){
-				mario.x +=5;
+				
+				socket.emit('move', 'right');
 			}
+
 			function update(){
+
+
+
 				if (cursors.up.isDown === true){
 					mario.y -= 5;
 
@@ -56,8 +93,10 @@
 					mario.x += 5;
 				}
 
+
 			}
 			function render(){
+
 			
 			}
 		};
