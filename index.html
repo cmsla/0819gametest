@@ -1,60 +1,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>0819 game</title>
+	<title>Game Console</title>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/phaser/2.0.6/phaser.min.js"></script>
 </head>
-
 <body>
 	<script type="text/javascript">
-		window.onload = function() {
-			var game = new Phaser.Game(800, 600, Phaser.AUTO, '',{preload: preload, create: create, update: update,  render: render});
-			
+		window.onload = function(){
+			var game = new Phaser.Game(800, 600, Phaser.AUTO, '', {preload: preload,
+						create: create, update: update, render: render});
 			var character;
 			var mario;
-			var Bt;
-
-			function preload() {
-				game.load.image('mario', 'assets/mario.png');
-				game.load.image('up', 'assets/upBt.png');
-				game.load.image('down', 'assets/downBt.png');
-				game.load.image('left', 'assets/leftBt.png');
-				game.load.image('right', 'assets/rightBt.png');
+			function preload(){
+				game.load.image('mario', 'image/mario.png');
+				game.load.image('up', 'image/up.png');
+				game.load.image('down', 'image/down.png');
+				game.load.image('left', 'image/left.png');
+				game.load.image('right', 'image/right.png');
 			}
-
-			function create() {			
-				//character = new Phaser.Rectangle(380, 280, 40, 40); 
-				mario = game.add.sprite(380, 280, 'mario');
-				mario.anchor.setTo(0.5, 0.5);
-				mario.
-				up = game.add.sprite(600, 400, 'up');
-				down = game.add.sprite(600, 600, 'down');
-				left = game.add.sprite(500, 500, 'left');
-				right = game.add.sprite(700, 500, 'right');
+			function create(){
+				character = new Phaser.Rectangle(380, 280, 40, 40); 
+				mario = game.add.sprite(100, 100, 'mario');
 
 				cursors = game.input.keyboard.createCursorKeys();
-			}
-
-			function update() {			
-				if (cursors.up.isDown === true) {
-					mario.rotation += 0.05;
-				}
-
-				else if (cursors.down.isDown === true) {
-					mario.rotation += -0.05;
-				}
-
-				else if (cursors.left.isDown === true) {
-					mario.X += 5;
-				}
+				up = game.add.button(600, 300, 'up', moveUp);
+				down = game.add.button(600, 500, 'down', moveDown);
+				left = game.add.button(500, 400, 'left', moveLeft);
+				right = game.add.button(700, 400,'right', moveRight);
 
 			}
-
-			function render() {			
-				game.debug.geom(character,'#0fffff');
+			function moveUp(){
+				mario.y -=5;
 			}
-		}; 
+			function moveDown(){
+				mario.y +=5;
+			}
+			function moveLeft(){
+				mario.x -=5;
+			}
+			function moveRight(){
+				mario.x +=5;
+			}
+			function update(){
+				if (cursors.up.isDown === true){
+					mario.y -= 5;
+
+				}
+				else if(cursors.down.isDown === true){
+					mario.y += 5;
+				}
+				else if (cursors.left.isDown === true){
+					mario.x -= 5;
+				}
+				else if(cursors.right.isDown === true){
+					mario.x += 5;
+				}
+
+			}
+			function render(){
+			
+			}
+		};
 
 	</script>
-</body>
+ </body>
 </html>
